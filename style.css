@@ -27,7 +27,13 @@ body {
     color: var(--text-white);
     background: var(--bg-dark);
     line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    width: 100%;
+}
+
+html {
     overflow-x: hidden;
+    width: 100%;
 }
 
 h1, h2, h3, .logo-text {
@@ -87,9 +93,10 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 10000; /* Extremely high z-index */
     transition: var(--transition);
     padding: 20px 0;
+    background: transparent;
 }
 
 header.sticky {
@@ -195,8 +202,12 @@ header.sticky {
 @media (max-width: 768px) {
     .menu-toggle { 
         display: flex !important; 
+        position: fixed !important; /* Fixed on scroll */
+        right: 30px !important; /* Pull in from edge */
+        top: 25px !important;
         opacity: 1 !important;
         visibility: visible !important;
+        z-index: 10001; 
     }
     .nav-links {
         position: fixed;
@@ -561,81 +572,54 @@ header.sticky {
 }
 
 /* Before & After */
-.ba-slider-container {
-    max-width: 800px;
-    margin: 0 auto;
+/* Before/After Side-by-Side */
+.ba-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 50px auto 0;
 }
 
-.ba-slider {
+.ba-item {
     position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
     border-radius: 15px;
+    overflow: hidden;
     border: 2px solid var(--accent-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-.ba-slider img {
+.ba-item img {
     width: 100%;
-    height: 100%;
+    height: 450px;
     object-fit: cover;
     display: block;
+    transition: transform 0.5s;
 }
 
-.resize-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 2;
+.ba-item:hover img {
+    transform: scale(1.05);
 }
 
-.handle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    background: var(--accent-color);
-    z-index: 3;
-    pointer-events: none;
-}
-
-.handle::after {
-    content: '\f337';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    background: var(--accent-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.ba-slider .label {
+.ba-label {
     position: absolute;
     bottom: 20px;
-    padding: 5px 15px;
-    background: rgba(0,0,0,0.6);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color);
     color: white;
-    font-size: 12px;
+    padding: 8px 25px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    z-index: 4;
+    letter-spacing: 1px;
 }
 
-.label.before { left: 20px; }
-.label.after { right: 20px; }
+@media (max-width: 768px) {
+    .ba-grid { grid-template-columns: 1fr; }
+    .ba-item img { height: 350px; }
+}
 
 /* Pricing */
 .price-card {
@@ -921,34 +905,44 @@ footer {
 }
 
 /* Tablet-shaped Floating Controls */
-.floating-controls {
-    position: fixed;
-    bottom: 30px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    z-index: 999999;
-}
-
 .floating-btn {
-    width: 60px; /* Start as circle */
-    height: 60px;
-    border-radius: 60px;
-    display: flex;
+    position: fixed !important;
+    bottom: 30px !important;
+    width: 52px;
+    height: 52px;
+    border-radius: 52px;
+    display: flex !important;
     align-items: center;
-    justify-content: flex-start; /* Consistently flex-start */
     color: var(--text-white);
     text-decoration: none;
-    font-size: 24px;
+    font-size: 20px;
     background: var(--primary-color);
     border: 1px solid var(--accent-color);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s;
     overflow: hidden;
     white-space: nowrap;
-    position: relative;
+    z-index: 1000000 !important;
     padding: 0;
+}
+
+.left-float {
+    right: 25px !important;
+    left: auto !important;
+    bottom: 100px !important; /* Above WhatsApp */
+    flex-direction: row-reverse !important;
+}
+
+.right-float {
+    right: 25px !important;
+    left: auto !important;
+    bottom: 30px !important;
+    flex-direction: row-reverse !important;
+}
+
+.floating-btn .hover-label {
+    padding-right: 0px !important;
+    padding-left: 15px !important;
 }
 
 .floating-btn.whatsapp {
@@ -958,8 +952,8 @@ footer {
 }
 
 .floating-btn i {
-    width: 60px; /* Fixed width to keep it centered when small */
-    height: 60px;
+    width: 52px; /* Fixed width to match small circle state */
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -972,7 +966,7 @@ footer {
 }
 
 .floating-btn.expanded {
-    width: 190px; /* Expanded tablet shape */
+    width: 170px; /* Reduced expanded width */
     background: var(--primary-light);
 }
 
@@ -996,11 +990,12 @@ footer {
 
 @media (max-width: 576px) {
     .floating-btn {
-        width: 55px;
-        height: 55px;
-        font-size: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
     }
-    .floating-btn i { width: 55px; height: 55px; }
-    .floating-btn.expanded { width: 165px; }
-    .hover-label { font-size: 12px; padding-right: 15px; }
+    .floating-btn i { width: 45px; height: 45px; }
+    .floating-btn.expanded { width: 140px; }
+    .hover-label { font-size: 11px; padding-right: 15px; }
+    .floating-controls { bottom: 20px !important; right: 20px !important; }
 }

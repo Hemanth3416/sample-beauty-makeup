@@ -236,19 +236,21 @@
         </div>
     </section>
 
-    <!-- Before & After Section -->
     <section class="before-after section-padding">
         <div class="container text-center">
             <h2 data-aos="fade-up">Witness the <span class="glow-text">Transformation</span></h2>
-            <div class="ba-slider-container mt-50" data-aos="zoom-in">
-                <div class="ba-slider">
-                    <img src="assets/after.jpg" alt="After Makeup Transformation" class="after-img">
-                    <div class="resize-img">
-                        <img src="assets/before.jpg" alt="Before Makeup Transformation" class="before-img">
+            <div class="ba-grid mt-50">
+                <div class="ba-item" data-aos="fade-right">
+                    <div class="ba-frame">
+                        <img src="assets/before.jpg" alt="Before Makeup Transformation">
+                        <span class="ba-label">Before</span>
                     </div>
-                    <span class="handle"></span>
-                    <span class="label before">Before</span>
-                    <span class="label after">After</span>
+                </div>
+                <div class="ba-item" data-aos="fade-left">
+                    <div class="ba-frame">
+                        <img src="assets/after.jpg" alt="After Makeup Transformation">
+                        <span class="ba-label">After</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -488,17 +490,15 @@
         </div>
     </footer>
 
-    <!-- Floating Buttons Container -->
-    <div class="floating-controls">
-        <a href="tel:9945963386" class="floating-btn call">
-            <i class="fas fa-phone"></i>
-            <span class="hover-label">Call Now</span>
-        </a>
-        <a href="https://wa.me/919945963386" class="floating-btn whatsapp" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-whatsapp"></i>
-            <span class="hover-label">Chat Now</span>
-        </a>
-    </div>
+    <!-- Floating Buttons (Separated) -->
+    <a href="tel:9945963386" class="floating-btn call left-float">
+        <i class="fas fa-phone"></i>
+        <span class="hover-label">Call Now</span>
+    </a>
+    <a href="https://wa.me/919945963386" class="floating-btn whatsapp right-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+        <span class="hover-label">Chat Now</span>
+    </a>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
